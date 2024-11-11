@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, purple, rgb(15, 3, 3));
+            color: white;
+            text-align: center;
+        }
+        header h1, header h2 {
+            color: white;
+        }
+        nav button {
+            background-color: rgb(105, 7, 105);
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        nav button:hover {
+            background-color: rgb(60, 17, 60);
+        }
+        .images img {
+            margin: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .dark-mode {
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to MentorMe</h1>
+        <h2>Empowering Futures, One Mentor at a Time</h2>
+    </header>
+
+    <nav>
+        <button id="home-btn">Home</button>
+        <button id="mentee-btn">Mentee Portal</button>
+        <button id="mentor-btn">Mentor Portal</button>
+        <button id="about-btn">About Us</button>
+        <button id="start-btn">Start for Free</button>
+        <button id="theme-button">Toggle Dark Mode</button>
+    </nav>
+
+    <main>
+        <section id="home-section">
+            <p>MentorMe connects underprivileged students with experienced mentors, providing access to resources and guidance to help them achieve their goals.</p>
+            <div class="images">
+                <img src="img/MentorMe.jpg" alt="MentorMe impact" width="300">
+                <img src="img/mentor.jpeg" alt="Mentor" width="300">
+            </div>
+        </section>
+
+        <section id="mentee-section" class="hidden">
+            <h2>Mentee Portal</h2>
+            <p>Welcome, Mentees! Here you can connect with mentors, explore resources, and get guidance for your career development.</p>
+        </section>
+
+        <section id="mentor-section" class="hidden">
+            <h2>Mentor Portal</h2>
+            <p>Welcome, Mentors! Here you can connect with mentees, share your knowledge, and make a positive impact on young lives.</p>
+        </section>
+
+        <section id="about-section" class="hidden">
+            <h2>About Us</h2>
+            <p>MentorMe is dedicated to bridging the gap for underprivileged students by providing mentorship and career guidance.</p>
+        </section>
+
+        <section id="petition-section">
+            <h2>Sign Our Petition 📢</h2>
+            <p id="counter">🖊️ 3 people have signed this petition and support this cause.</p>
+            <div class="petition-container">
+                <div class="petition-text">
+                    <p>Support MentorMe in empowering underprivileged students. By signing this petition, you’re helping raise awareness about the importance of mentorship in education.</p>
+                </div>
+                <div class="signatures">
+                    <p>🖊️ Savanna Thomas from Jamaica supports this.</p>
+                    <p>🖊️ Brighton Chisenga from Zambia supports this.</p>
+                    <p>🖊️ Busiku Munene from the United States supports this.</p>
+                </div>
+            </div>
+
+            <form id="petition-form">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+                <label for="country">Country:</label>
+                <input type="text" id="country" placeholder="Enter your country" required>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+                <button type="button" id="sign-now-button">Sign Now</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById("theme-button").addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+        });
+
+        const signNowButton = document.getElementById("sign-now-button");
+        let count = 3;
+
+        signNowButton.addEventListener("click", function() {
+            const name = document.getElementById("name").value;
+            const country = document.getElementById("country").value;
+            const email = document.getElementById("email").value;
+
+            if (name && country && email) {
+                const newSignature = document.createElement("p");
+                newSignature.textContent = `🖊️ ${name} from ${country} supports this.`;
+                
+                const signaturesSection = document.querySelector(".signatures");
+                signaturesSection.appendChild(newSignature);
+
+                count++;
+                document.getElementById("counter").textContent = `🖊️ ${count} people have signed this petition and support this cause.`;
+
+                document.getElementById("name").value = '';
+                document.getElementById("country").value = '';
+                document.getElementById("email").value = '';
+            } else {
+                alert("Please fill out all fields!");
+            }
+        });
+
+        const sections = {
+            home: document.getElementById("home-section"),
+            mentee: document.getElementById("mentee-section"),
+            mentor: document.getElementById("mentor-section"),
+            about: document.getElementById("about-section"),
+            petition: document.getElementById("petition-section"),
+        };
+
+        function showSection(section) {
+            Object.values(sections).forEach(s => s.classList.add("hidden"));
+            section.classList.remove("hidden");
+        }
+
+        document.getElementById("home-btn").addEventListener("click", () => showSection(sections.home));
+        document.getElementById("mentee-btn").addEventListener("click", () => showSection(sections.mentee));
+        document.getElementById("mentor-btn").addEventListener("click", () => showSection(sections.mentor));
+        document.getElementById("about-btn").addEventListener("click", () => showSection(sections.about));
+        document.getElementById("start-btn").addEventListener("click", () => showSection(sections.petition));
+    </script>
+</body>
+</html>
